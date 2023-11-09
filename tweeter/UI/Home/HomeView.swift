@@ -34,8 +34,6 @@ struct HomeView: View {
             .padding()
             
         }
-        .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
