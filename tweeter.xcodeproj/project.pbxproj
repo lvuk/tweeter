@@ -20,6 +20,10 @@
 		5A5479672AF4F61200E0470D /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5479662AF4F61200E0470D /* TweetCell.swift */; };
 		5A5479692AFCD47400E0470D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5479682AFCD47400E0470D /* SearchBar.swift */; };
 		5A54796B2AFCD7E000E0470D /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54796A2AFCD7E000E0470D /* UserCell.swift */; };
+		5A54796E2AFCDB8300E0470D /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54796D2AFCDB8300E0470D /* UserProfileView.swift */; };
+		5A5479702AFCDCB200E0470D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54796F2AFCDCB200E0470D /* ProfileHeaderView.swift */; };
+		5A5479722AFCDF1100E0470D /* ActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5479712AFCDF1000E0470D /* ActionButtonView.swift */; };
+		5A5479752AFCE42100E0470D /* NewTweetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5479742AFCE42100E0470D /* NewTweetsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,10 @@
 		5A5479662AF4F61200E0470D /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		5A5479682AFCD47400E0470D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		5A54796A2AFCD7E000E0470D /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		5A54796D2AFCDB8300E0470D /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		5A54796F2AFCDCB200E0470D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		5A5479712AFCDF1000E0470D /* ActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonView.swift; sourceTree = "<group>"; };
+		5A5479742AFCE42100E0470D /* NewTweetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTweetsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +152,7 @@
 		5A54795A2AF4F22E00E0470D /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5A5479732AFCE41000E0470D /* Tweets */,
 				5A54796C2AFCDB3E00E0470D /* Profile */,
 				5A5479652AF4F60300E0470D /* Components */,
 				5A5479612AF4F29200E0470D /* Messages */,
@@ -190,6 +199,8 @@
 				5A5479662AF4F61200E0470D /* TweetCell.swift */,
 				5A5479682AFCD47400E0470D /* SearchBar.swift */,
 				5A54796A2AFCD7E000E0470D /* UserCell.swift */,
+				5A54796F2AFCDCB200E0470D /* ProfileHeaderView.swift */,
+				5A5479712AFCDF1000E0470D /* ActionButtonView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -197,8 +208,17 @@
 		5A54796C2AFCDB3E00E0470D /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				5A54796D2AFCDB8300E0470D /* UserProfileView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		5A5479732AFCE41000E0470D /* Tweets */ = {
+			isa = PBXGroup;
+			children = (
+				5A5479742AFCE42100E0470D /* NewTweetsView.swift */,
+			);
+			path = Tweets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,13 +352,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A54796B2AFCD7E000E0470D /* UserCell.swift in Sources */,
+				5A54796E2AFCDB8300E0470D /* UserProfileView.swift in Sources */,
 				5A5479692AFCD47400E0470D /* SearchBar.swift in Sources */,
 				5A5479632AF4F2A500E0470D /* MessagesView.swift in Sources */,
 				5A5479602AF4F28500E0470D /* SearchView.swift in Sources */,
+				5A5479722AFCDF1100E0470D /* ActionButtonView.swift in Sources */,
 				5A54795D2AF4F25D00E0470D /* HomeView.swift in Sources */,
 				5A5479672AF4F61200E0470D /* TweetCell.swift in Sources */,
 				5A127DA12AF3FF2200856D3F /* ContentView.swift in Sources */,
+				5A5479702AFCDCB200E0470D /* ProfileHeaderView.swift in Sources */,
 				5A127D9F2AF3FF2200856D3F /* tweeterApp.swift in Sources */,
+				5A5479752AFCE42100E0470D /* NewTweetsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

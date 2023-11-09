@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State var isShowingNewTweet = false
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             
@@ -22,6 +23,7 @@ struct HomeView: View {
             
             Button {
                 //do smth
+                isShowingNewTweet.toggle()
             } label: {
                 Image(systemName: "plus")
                     .resizable()
@@ -32,6 +34,9 @@ struct HomeView: View {
             .foregroundColor(.white)
             .clipShape(Circle())
             .padding()
+            .fullScreenCover(isPresented: $isShowingNewTweet) {
+                NewTweetsView()
+            }
             
         }
     }
