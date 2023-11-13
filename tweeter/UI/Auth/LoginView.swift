@@ -12,70 +12,73 @@ struct LoginView: View {
     @State var password = ""
     
     var body: some View {
-        VStack {
-            Image("logo-twitter")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 220, height: 100)
-                .padding(.top, 88)
-                .padding(.bottom, 32)
-            
+       NavigationStack {
             VStack {
-                CustomTextField(text: $email, placeholder: Text("Email"), imageName: "envelope")
-                    .padding()
-                    .background(Color.init(UIColor(white: 0, alpha: 0.05)))
-                    .clipShape(Capsule())
-                    .padding()
+                Image("logo-twitter")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 220, height: 100)
+                    .padding(.top, 88)
+                    .padding(.bottom, 32)
                 
-                CustomSecureField(text: $password, placeholder: Text("Password"))
-                    .padding()
-                    .background(Color.init(UIColor(white: 0, alpha: 0.05)))
-                    .clipShape(Capsule())
-                    .padding(.horizontal)
+                VStack {
+                    CustomTextField(text: $email, placeholder: Text("Email"), imageName: "envelope")
+                        .padding()
+                        .background(Color.init(UIColor(white: 0, alpha: 0.05)))
+                        .clipShape(Capsule())
+                        .padding()
                     
-            }
-            
-            HStack {
+                    CustomSecureField(text: $password, placeholder: Text("Password"))
+                        .padding()
+                        .background(Color.init(UIColor(white: 0, alpha: 0.05)))
+                        .clipShape(Capsule())
+                        .padding(.horizontal)
+                        
+                }
+                
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        //do smth
+                    } label: {
+                        Text("Forgot Password?")
+                            .font(.footnote)
+                            .bold()
+                            .foregroundStyle(.black)
+                            .padding(.top, 8)
+                            .padding(.trailing)
+                    }
+                }
+                
+                Button {
+                    //do smth
+                } label: {
+                    Text("Sign In")
+                        .foregroundStyle(.white)
+                        .font(.headline)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 150)
+                        .background(Color.init(UIColor(white: 0, alpha: 1)))
+                        .clipShape(Capsule())
+                        .padding(.top)
+                }
+                
                 Spacer()
                 
-                Button {
-                    //do smth
-                } label: {
-                    Text("Forgot Password?")
-                        .font(.footnote)
-                        .bold()
+                NavigationLink(
+                    destination: RegisterView().navigationBarBackButtonHidden(),
+                    label: {
+                        HStack {
+                            Text("Don't have an account yet?")
+                            Text("Sign Up")
+                                .font(.headline)
+                        }
                         .foregroundStyle(.black)
-                        .padding(.top, 8)
-                        .padding(.trailing)
-                }
+                    }
+                )
+                
             }
-            
-            Button {
-                //do smth
-            } label: {
-                Text("Sign In")
-                    .foregroundStyle(.white)
-                    .font(.headline)
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 150)
-                    .background(Color.init(UIColor(white: 0, alpha: 1)))
-                    .clipShape(Capsule())
-                    .padding(.top)
-            }
-            
-            Spacer()
-            
-            HStack {
-                Text("Don't have an account?")
-                Button {
-                    //do smth
-                } label: {
-                    Text("Sign up")
-                        .font(.headline)
-                        .foregroundStyle(.black)
-                }
-            }
-            
         }
     }
 }
