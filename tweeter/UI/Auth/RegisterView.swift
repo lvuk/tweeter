@@ -17,7 +17,9 @@ struct RegisterView: View {
     @State var isShowingImagePicker = false
     
     @State private var profilePicutreItem: PhotosPickerItem?
-    @State private var profilePicture: Image?
+    @State private var profilePicture: UIImage?
+    
+    @ObservedObject var viewModel = AuthViewModel()
     
     var body: some View {
         VStack {
@@ -27,7 +29,7 @@ struct RegisterView: View {
             } label: {
                 PhotosPicker(selection: $profilePicutreItem) {
                     if let profilePicture = profilePicture {
-                        profilePicture
+                        Image(uiImage: profilePicture)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 200, height: 140)
@@ -49,7 +51,7 @@ struct RegisterView: View {
                 Task {
                     if let data = try? await profilePicutreItem?.loadTransferable(type: Data.self) {
                             if let uiImage = UIImage(data: data) {
-                                profilePicture = Image(uiImage: uiImage)
+                                profilePicture = uiImage
                                 return
                         }
                     }
@@ -90,6 +92,7 @@ struct RegisterView: View {
             
             Button {
                 //do smth
+                viewModel.register(email: email, password: password, username: username, fullName: fullName, profileImage: profilePicture)
             } label: {
                 Text("Sign Up")
                     .foregroundStyle(.white)
