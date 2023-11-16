@@ -9,17 +9,17 @@ import PhotosUI
 import SwiftUI
 
 struct RegisterView: View {
-    @State var email = ""
-    @State var password = ""
-    @State var fullName = ""
-    @State var username = ""
-    @Environment(\.dismiss) var dismiss
-    @State var isShowingImagePicker = false
+    @State private var email = ""
+    @State private var password = ""
+    @State private var fullName = ""
+    @State private var username = ""
+    @State private var isShowingImagePicker = false
     
     @State private var profilePicutreItem: PhotosPickerItem?
     @State private var profilePicture: UIImage?
     
-    @ObservedObject var viewModel = AuthViewModel()
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack {

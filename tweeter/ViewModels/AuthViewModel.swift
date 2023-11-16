@@ -9,10 +9,27 @@ import Foundation
 import SwiftUI
 import Firebase
 import FirebaseStorage
+import FirebaseAuth
 
 class AuthViewModel: ObservableObject {
+    @Published var userSession: FirebaseAuth.User?
+    @Published var isAuthenticating = false
+    @Published var error: Error?
+//    @Published var user: User?
     
-    func login() {
+    init() {
+        userSession = Auth.auth().currentUser
+    }
+    
+    func login(withEmail email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("DEBUG: Failed to login - \(error.localizedDescription)")
+                return
+            }
+            self.userSession = result?.user
+            print("DEBUG: Logged in successfully..")
+        }
         
     }
     
@@ -53,19 +70,33 @@ class AuthViewModel: ObservableObject {
                     
                     guard let user = result?.user else { return }
                     
-                    let data = ["email": email,
-                                "username": username,
-                                "fullName": fullName,
+                    let data = ["email": email.lowercased(),
+                                "username": username.lowercased(),
+                                "fullName": fullName.lowercased(),
                                 "profileImageUrl": profileImageUrl,
                                 "uid": user.uid
                                 ]
                     
                     Firestore.firestore().collection("users").document(user.uid).setData(data) { _ in
+                        self.userSession = user
                         print("DEBUG: Succesfully uploaded user data..")
-                        
                     }
                 }
             }
+        }
+    }
+    
+    func logout() {
+        userSession = nil
+        try? Auth.auth().signOut()
+    }
+    
+    func fetchUser() {
+        guard let uid = userSession?.uid else { return }
+        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, _ in
+            guard let data = snapshot?.data() else { return }
+            let user = User(dictionary: data)
+            print("DEBUG: User fetched - \(user.username)")
         }
     }
 }

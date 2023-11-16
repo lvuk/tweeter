@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     @State var isShowingNewTweet = false
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             
@@ -23,7 +25,9 @@ struct HomeView: View {
             
             Button {
                 //do smth
-                isShowingNewTweet.toggle()
+//                isShowingNewTweet.toggle()
+                viewModel.logout()
+                
             } label: {
                 Image(systemName: "plus")
                     .resizable()
