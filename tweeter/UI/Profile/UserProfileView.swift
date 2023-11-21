@@ -8,10 +8,18 @@
 import SwiftUI
 
 struct UserProfileView: View {
+    let user: User
+    @ObservedObject var viewModel: ProfileViewModel
+    
+    init(user: User) {
+        self.user = user
+        self.viewModel = ProfileViewModel(user: user)
+    }
+
     var body: some View {
         ScrollView {
             VStack {
-                ProfileHeaderView()
+                ProfileHeaderView(viewModel: viewModel, isFollowed: $viewModel.isFollowed)
                 
                 VStack {
                    Text("Tweets")
@@ -29,10 +37,10 @@ struct UserProfileView: View {
                 
             }
         }
-        .navigationTitle("batman")
+        .navigationTitle(user.username)
     }
 }
 
-#Preview {
-    UserProfileView()
-}
+//#Preview {
+//    UserProfileView()
+//}

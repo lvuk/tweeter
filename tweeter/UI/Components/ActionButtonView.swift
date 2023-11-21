@@ -8,35 +8,44 @@
 import SwiftUI
 
 struct ActionButtonView: View {
-    let isCurrentUser: Bool
+    let viewModel: ProfileViewModel
+    @Binding var isFollowed: Bool
     
     var body: some View {
-        if isCurrentUser {
+        if viewModel.user.isCurrentUser {
             Button {
-                //do smth
+                //action for editing profile
             } label: {
                 Text("Edit Profile")
                     .frame(width: 360, height: 40)
-                    .background(Color.blue)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.blue)
                     .clipShape(Capsule())
+                    
             }
+            .overlay(
+                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                    .stroke(Color.blue, lineWidth: 1)
+            )
         } else {
             HStack {
                 Button {
-                    //do smth
+                    //action for follow
+                    isFollowed ? viewModel.unfollow() : viewModel.follow()
                 } label: {
-                    Text("Follow")
+                    Text(isFollowed ? "Unfollow" : "Follow ")
                         .frame(width: 360, height: 40)
-                        .background(Color.blue)
-                        .foregroundStyle(.white)
+                        .background(isFollowed ? Color.clear : Color.blue)
+                        .foregroundStyle(isFollowed ? Color.blue : Color.white)
                         .clipShape(Capsule())
                 }
+                .overlay(
+                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).stroke(Color.blue, lineWidth: 1)
+                )
             }
         }
     }
 }
 
-#Preview {
-    ActionButtonView(isCurrentUser: false)
-}
+//#Preview {
+//    ActionButtonView(isCurrentUser: true)
+//}

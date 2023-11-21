@@ -39,6 +39,7 @@
 		5A5479952B061BE000E0470D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5A5479942B061BE000E0470D /* Kingfisher */; };
 		5A5479972B061C6500E0470D /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5479962B061C6500E0470D /* SearchViewModel.swift */; };
 		5A5479992B061DD000E0470D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5479982B061DD000E0470D /* Constants.swift */; };
+		5A54799B2B06250200E0470D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54799A2B06250200E0470D /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		5A5479912B0614A800E0470D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5A5479962B061C6500E0470D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		5A5479982B061DD000E0470D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5A54799A2B06250200E0470D /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				5A54795F2AF4F28500E0470D /* SearchView.swift */,
+				5A5479962B061C6500E0470D /* SearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				5A54796D2AFCDB8300E0470D /* UserProfileView.swift */,
+				5A54799A2B06250200E0470D /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -280,6 +284,7 @@
 			children = (
 				5A54797B2B02394F00E0470D /* LoginView.swift */,
 				5A54797D2B02396400E0470D /* RegisterView.swift */,
+				5A54798F2B03913B00E0470D /* AuthViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -287,8 +292,6 @@
 		5A54798E2B03912200E0470D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				5A54798F2B03913B00E0470D /* AuthViewModel.swift */,
-				5A5479962B061C6500E0470D /* SearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				5A5479672AF4F61200E0470D /* TweetCell.swift in Sources */,
 				5A127DA12AF3FF2200856D3F /* ContentView.swift in Sources */,
 				5A5479702AFCDCB200E0470D /* ProfileHeaderView.swift in Sources */,
+				5A54799B2B06250200E0470D /* ProfileViewModel.swift in Sources */,
 				5A127D9F2AF3FF2200856D3F /* tweeterApp.swift in Sources */,
 				5A5479752AFCE42100E0470D /* NewTweetsView.swift in Sources */,
 				5A5479922B0614A800E0470D /* User.swift in Sources */,
