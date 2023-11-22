@@ -12,6 +12,7 @@ struct NewTweetsView: View {
     
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel = NewTweetViewModel()
+    @ObservedObject var homeViewModel: HomeViewModel
     
     @State var captionText = ""
     
@@ -48,6 +49,7 @@ struct NewTweetsView: View {
                     Button {
                         //do smth
                         viewModel.upload(caption: captionText)
+                        homeViewModel.fetchTweets()
                         dismiss()
                     } label: {
                         Text("Tweet")
@@ -63,6 +65,6 @@ struct NewTweetsView: View {
     }
 }
 
-#Preview {
-    NewTweetsView()
-}
+//#Preview {
+//    NewTweetsView()
+//}

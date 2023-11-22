@@ -9,16 +9,18 @@ import SwiftUI
 
 struct HomeView: View {
     @State var isShowingNewTweet = false
-    @EnvironmentObject var viewModel: AuthViewModel
+    @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             
             ScrollView {
                 LazyVStack {
-                    ForEach(0..<10) { _ in
-                        TweetCell()
-                            .padding(.horizontal)
+                    ForEach(viewModel.tweets) { tweet in
+                        NavigationLink(destination: TweetDetailView(tweet: tweet)) {
+                            TweetCell(tweet: tweet)
+                                .padding(.horizontal)
+                        }
                     }
                 }
             }
@@ -37,15 +39,15 @@ struct HomeView: View {
             .clipShape(Circle())
             .padding()
             .fullScreenCover(isPresented: $isShowingNewTweet) {
-                NewTweetsView()
+                NewTweetsView(homeViewModel: viewModel)
             }
             
         }
     }
 }
 
-#Preview {
-    NavigationStack{
-        HomeView()
-    }
-}
+//#Preview {
+//    NavigationStack{
+//        HomeView()
+//    }
+//}

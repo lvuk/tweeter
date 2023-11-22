@@ -30,7 +30,7 @@ struct UserProfileView: View {
                         .foregroundColor(.blue)
                     
                     ForEach(0..<9) { _ in
-                        TweetCell()
+//                        TweetCell()
                     }
                 }
                 .padding(.top)

@@ -16,6 +16,8 @@ class SearchViewModel: ObservableObject {
         fetchUsers()
     }
     
+    static let shared = SearchViewModel()
+    
     func fetchUsers() {
         COLLECTION_USERS.getDocuments { snapshot, error in
             guard let documents = snapshot?.documents else { return }

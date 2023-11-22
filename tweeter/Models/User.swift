@@ -24,14 +24,4 @@ struct User: Identifiable {
         self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? ""
     }
-    
-    init(id: String, username: String, email: String, profileImageUrl: String, fullName: String) {
-        self.id = id
-        self.username = username
-        self.email = email
-        self.profileImageUrl = profileImageUrl
-        self.fullName = fullName
-    }
-    
-    static let example = User(id: "blabla", username: "vuk", email: "luka@Vuk.com", profileImageUrl: "blabla.com", fullName: "Luka Vuk")
 }

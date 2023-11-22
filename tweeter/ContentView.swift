@@ -11,6 +11,8 @@ import Kingfisher
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var isShowingLogout = false
+    @ObservedObject var homeViewModel = HomeViewModel()
+    @ObservedObject var searchViewModel = SearchViewModel()
     
     var body: some View {
         Group {
@@ -18,13 +20,13 @@ struct ContentView: View {
                 NavigationStack {
                     
                     TabView {
-                        HomeView()
+                        HomeView(viewModel: homeViewModel)
                             .tabItem {
                                 Image(systemName: "house")
                                 Text("Home")
                             }
                         
-                        SearchView()
+                        SearchView(viewModel: searchViewModel)
                             .tabItem {
                                 Image(systemName: "magnifyingglass")
                                 Text("Search")

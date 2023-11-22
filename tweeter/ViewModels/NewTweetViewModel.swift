@@ -19,6 +19,7 @@ class NewTweetViewModel: ObservableObject {
                                    "timestamp": Timestamp(date: Date()),
                                    "username": user.username,
                                    "profileImageUrl": user.profileImageUrl,
+                                   "fullName": user.fullName,
                                    "likes": 0,
                                    "id": COLLECTION_TWEET.document().documentID]
         
