@@ -25,9 +25,7 @@ struct HomeView: View {
             
             Button {
                 //do smth
-//                isShowingNewTweet.toggle()
-                viewModel.logout()
-                
+                isShowingNewTweet.toggle()
             } label: {
                 Image(systemName: "plus")
                     .resizable()

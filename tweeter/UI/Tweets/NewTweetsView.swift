@@ -6,22 +6,27 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct NewTweetsView: View {
     
     @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel = NewTweetViewModel()
     
     @State var captionText = ""
+    
     var body: some View {
         NavigationStack {
             VStack{
                 HStack(alignment: .top) {
-                    Image("batman")
-                        .resizable()
-                        .scaledToFill()
-                        .clipped()
-                        .frame(width: 64, height: 64)
-                        .clipShape(Circle())
+                    if let user = AuthViewModel.shared.user {
+                        KFImage(URL(string: user.profileImageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .frame(width: 64, height: 64)
+                            .clipShape(Circle())
+                    }
                     
                     TextArea(placeholder: "What's happening?", text: $captionText)
                     
@@ -42,6 +47,8 @@ struct NewTweetsView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         //do smth
+                        viewModel.upload(caption: captionText)
+                        dismiss()
                     } label: {
                         Text("Tweet")
                             .padding(.horizontal)
