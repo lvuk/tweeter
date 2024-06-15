@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/swift,cocoapods,xcode
 # Edit at https://www.toptal.com/developers/gitignore?templates=swift,cocoapods,xcode
 
+.xcodeproj
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
 
@@ -36,7 +37,7 @@ DerivedData/
 
 ## Obj-C/Swift specific
 *.hmap
-
+.DS_Store
 ## App packaging
 *.ipa
 *.dSYM.zip

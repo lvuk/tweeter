@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCvR7OqS7b0kwf5cbIk3ZxOUKST96fnKNE</string>
+	<string>
+AIzaSyACixEQ2q83eC0Fbb5R33Y2fKZI67HjcR0</string>
 	<key>GCM_SENDER_ID</key>
 	<string>767242230424</string>
 	<key>PLIST_VERSION</key>
@@ -15,15 +16,15 @@
 	<key>STORAGE_BUCKET</key>
 	<string>teetwer-15392.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:767242230424:ios:d425511096a65e8bc70eed</string>
 </dict>

@@ -20,6 +20,7 @@ struct UserProfileView: View {
         ScrollView {
             VStack {
                 ProfileHeaderView(viewModel: viewModel, isFollowed: $viewModel.isFollowed)
+                    .padding(.top, 40)
                 
                 VStack {
                    Text("Tweets")

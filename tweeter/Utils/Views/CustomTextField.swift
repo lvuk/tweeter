@@ -28,7 +28,7 @@ struct CustomTextField: View {
                     .frame(width: 20, height: 20)
                 
                 TextField("", text: $text)
-                    .textInputAutocapitalization(.none)
+                    .textInputAutocapitalization(.never)
             }
         }
     }

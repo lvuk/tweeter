@@ -11,6 +11,7 @@ import Kingfisher
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var isShowingLogout = false
+    @State private var isShowingProfile = false
     @ObservedObject var homeViewModel = HomeViewModel()
     @ObservedObject var searchViewModel = SearchViewModel()
     
@@ -40,10 +41,17 @@ struct ContentView: View {
                         
                     }
                     .confirmationDialog("Do you want to logout?", isPresented: $isShowingLogout, actions: {
-                        Button("Logout", role: .destructive) { viewModel.logout()}
+                        Button("Profile") {
+                            isShowingProfile.toggle()
+                        }
+                        Button("Logout", role: .destructive) { viewModel.logout()
+                        }
                         Button("Cancel", role: .cancel) {}
                     })
                     .navigationTitle("Home")
+                    .sheet(isPresented: $isShowingProfile) {
+                        UserProfileView(user: viewModel.user!)
+                    }
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
@@ -69,6 +77,7 @@ struct ContentView: View {
                         }
                     }
                     .navigationBarTitleDisplayMode(.inline)
+                    
                 }
             } else {
                 LoginView()
