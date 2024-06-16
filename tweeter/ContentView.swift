@@ -40,6 +40,10 @@ struct ContentView: View {
                             }
                         
                     }
+                    .navigationTitle("Home")
+                    .sheet(isPresented: $isShowingProfile) {
+                        UserProfileView(user: viewModel.user!)
+                    }
                     .confirmationDialog("Do you want to logout?", isPresented: $isShowingLogout, actions: {
                         Button("Profile") {
                             isShowingProfile.toggle()
@@ -48,10 +52,6 @@ struct ContentView: View {
                         }
                         Button("Cancel", role: .cancel) {}
                     })
-                    .navigationTitle("Home")
-                    .sheet(isPresented: $isShowingProfile) {
-                        UserProfileView(user: viewModel.user!)
-                    }
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {

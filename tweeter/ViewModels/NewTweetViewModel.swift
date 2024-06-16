@@ -13,7 +13,10 @@ class NewTweetViewModel: ObservableObject {
     
     func upload(caption: String) {
         guard let user = AuthViewModel.shared.user else { return }
-        
+
+        let newTweetRef = COLLECTION_TWEET.document() // Generate a new document reference
+        let newTweetID = newTweetRef.documentID // Get the generated document ID
+
         let data: [String: Any] = ["uid": user.id,
                                    "caption": caption,
                                    "timestamp": Timestamp(date: Date()),
@@ -21,15 +24,15 @@ class NewTweetViewModel: ObservableObject {
                                    "profileImageUrl": user.profileImageUrl,
                                    "fullName": user.fullName,
                                    "likes": 0,
-                                   "id": COLLECTION_TWEET.document().documentID]
-        
-        COLLECTION_TWEET.document().setData(data) { [weak self] error in
+                                   "id": newTweetID]
+
+        newTweetRef.setData(data) { error in
             if let error = error {
-                print("DEBUG: Failed to upload a tweet..")
+                print("DEBUG: Failed to upload a tweet - \(error.localizedDescription)")
                 return
             }
-            
-            print("DEBUG: Successfully uploaded a tweet..")
+
+            print("DEBUG: Successfully uploaded a tweet with ID: \(newTweetID)")
         }
     }
 }

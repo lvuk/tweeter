@@ -46,32 +46,7 @@ struct TweetCell: View {
             .padding(.trailing)
             
             
-            HStack {
-                Spacer()
-                Button {
-                    //do smth
-                } label: {
-                    Image(systemName: "bubble.left")
-                }
-                Spacer()
-                Spacer()
-                Button {
-                    //do smth
-                } label: {
-                    Image(systemName: "heart")
-                }
-                Spacer()
-                Spacer()
-                Button {
-                    //do smth
-                } label: {
-                    Image(systemName: "bookmark")
-                }
-                Spacer()
-              
-            }
-            .padding(.horizontal)
-            .foregroundStyle(.gray)
+           TweetActionsView(tweet: tweet)
             
             Divider()
                 .padding(.vertical)

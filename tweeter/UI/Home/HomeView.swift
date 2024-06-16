@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var isShowingNewTweet = false
+ 
     @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
@@ -41,8 +42,8 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $isShowingNewTweet) {
                 NewTweetsView(homeViewModel: viewModel)
             }
-            
         }
+        .onAppear { viewModel.fetchTweets() }
     }
 }
 

@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State var text = ""
     @ObservedObject var viewModel: SearchViewModel
-    
+        
     var body: some View {
         ScrollView {
-            SearchBar(text: $text)
+            SearchBar(text: $viewModel.searchText)
                 .padding()
+
             
             VStack(alignment: .leading) {
-                ForEach(viewModel.users) { user in
+                ForEach(viewModel.filteredUsers.isEmpty ? viewModel.users : viewModel.filteredUsers) { user in
                     NavigationLink(
                         destination: UserProfileView(user: user),
                         label: {

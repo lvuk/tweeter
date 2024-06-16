@@ -9,7 +9,15 @@ import SwiftUI
 import Kingfisher
 
 struct TweetDetailView: View {
+    @Environment(\.dismiss) var dismiss
     let tweet: Tweet
+    @State private var isShowingDelete = false
+    @ObservedObject var viewModel: TweetActionsViewModel
+    
+    init(tweet: Tweet) {
+        self.tweet = tweet
+        self.viewModel = TweetActionsViewModel(tweet: tweet)
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -26,6 +34,18 @@ struct TweetDetailView: View {
                     
                     Text(tweet.username).font(.system(size: 14)).foregroundStyle(.gray)
                 }
+                
+                Spacer()
+                
+                if viewModel.checkIfUserTweetOwner() {
+                    Button {
+                        //toggle notification
+                        NotificationPublisher.instance.publishShowDeleteDialog()
+                    } label: {
+                        Image(systemName: "trash")
+                            .foregroundStyle(.red)
+                    }
+                }
             }
             
             Text(tweet.caption)
@@ -35,45 +55,26 @@ struct TweetDetailView: View {
                 .foregroundStyle(.gray)
             
             Divider()
-            
-            HStack {
-                Text(String(tweet.likes)).fontWeight(.semibold)
-                Text("likes")
-            }
-            
-            Divider()
-            
-            HStack {
-                Spacer()
-                Button {
-                    //do smth
-                } label: {
-                    Image(systemName: "bubble.left")
-                }
-                Spacer()
-                Spacer()
-                Button {
-                    //do smth
-                } label: {
-                    Image(systemName: "heart")
-                }
-                Spacer()
-                Spacer()
-                Button {
-                    //do smth
-                } label: {
-                    Image(systemName: "bookmark")
-                }
-                Spacer()
-              
-            }
-            .padding(.horizontal)
-            .foregroundStyle(.gray)
+            TweetActionsView(tweet: tweet)
+                
             
             Divider()
             Spacer()
         }
         .padding()
+        .onReceive(NotificationCenter.default.publisher(for: .showDeleteDialog)) { _ in
+            isShowingDelete = true
+        }
+        .confirmationDialog("Are you sure you want to delete this tweet?", isPresented: $isShowingDelete) {
+            Button("Delete", role:.destructive) {
+                //delete tweet
+                viewModel.deleteTweet()
+                dismiss()
+                
+            }
+            
+            Button("Cancel") { }
+        }
     }
 }
 
