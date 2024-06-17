@@ -1,47 +1,41 @@
-//
-//  UserProfileView.swift
-//  tweeter
-//
-//  Created by Luka Vuk on 09.11.2023..
-//
-
 import SwiftUI
 
 struct UserProfileView: View {
-    let user: User
-    @ObservedObject var viewModel: ProfileViewModel
+    var user: User
     @State private var selectedFilter: TweetFilterOptions = .tweets
+    @StateObject private var viewModel: ProfileViewModel
     
     init(user: User) {
         self.user = user
-        self.viewModel = ProfileViewModel(user: user)
+        _viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
     }
 
     var body: some View {
         ScrollView {
-            VStack {
-                ProfileHeaderView(viewModel: viewModel, isFollowed: $viewModel.isFollowed)
-                    .padding(.top, 40)
-                
-                FilterButtonView(selectedOption: $selectedFilter)
-                    .padding(.top)
-//                FilterButtonView()
-//                    .padding(.top)
-                
-                ForEach(viewModel.userTweets) { tweet in
-                    TweetCell(tweet: tweet)
-                        .padding()
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+            } else {
+                VStack {
+                    ProfileHeaderView(viewModel: viewModel, isFollowed: $viewModel.isFollowed)
+                        .padding(.top, 40)
+                    
+                    FilterButtonView(selectedOption: $selectedFilter)
+                        .padding(.top)
+                    
+                    ForEach(viewModel.userTweets) { tweet in
+                        NavigationLink(destination: TweetDetailView(tweet: tweet)) {
+                            TweetCell(tweet: tweet)
+                                .padding()
+                        }
+                    }
                 }
-                
-                
-                
-                
             }
         }
         .navigationTitle(user.username)
+        .onAppear {
+            viewModel.fetchUserInfo()
+        }
     }
 }
-
-//#Preview {
-//    UserProfileView()
-//}

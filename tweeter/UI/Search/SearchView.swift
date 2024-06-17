@@ -29,6 +29,9 @@ struct SearchView: View {
             }
             .padding(.leading)
         }
+        .onAppear {
+            viewModel.fetchUsers()
+        }
     }
 }
 

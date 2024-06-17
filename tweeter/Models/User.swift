@@ -12,9 +12,9 @@ struct User: Identifiable {
     let id: String
     let username: String
     let email: String
-    let profileImageUrl: String
-    let fullName: String
-    let description: String
+    var profileImageUrl: String
+    var fullName: String
+    var description: String
     var stats: UserStats
     
     var isCurrentUser: Bool { return Auth.auth().currentUser?.uid == self.id }
@@ -25,7 +25,7 @@ struct User: Identifiable {
         self.email = dictionary["email"] as? String ?? ""
         self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? ""
-        self.description = dictionary["description"] as? String ?? "User didn't provide a description"
+        self.description = dictionary["description"] as? String ?? ""
         self.stats = UserStats(followers: 0, following: 0)
     }
 }

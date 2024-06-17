@@ -4,12 +4,13 @@
 //
 //  Created by Luka Vuk on 09.11.2023..
 //
-
 import SwiftUI
 import Kingfisher
 
 struct ProfileHeaderView: View {
-    let viewModel: ProfileViewModel
+    @ObservedObject var viewModel: ProfileViewModel
+    @State private var followerCount = 0
+    @State private var followingCount = 0
     @Binding var isFollowed: Bool
     
     var body: some View {
@@ -35,7 +36,7 @@ struct ProfileHeaderView: View {
             
             HStack(spacing: 42) {
                 VStack {
-                    Text("\(viewModel.user.stats.followers)")
+                    Text("\(followerCount)")
                         .font(.system(size: 16)).bold()
                     
                     Text("Followers")
@@ -44,7 +45,7 @@ struct ProfileHeaderView: View {
                 }
                 
                 VStack {
-                    Text("\(viewModel.user.stats.following)")
+                    Text("\(followingCount)")
                         .font(.system(size: 16)).bold()
                     
                     Text("Following")
@@ -58,9 +59,9 @@ struct ProfileHeaderView: View {
             
             Spacer()
         }
+        .onAppear {
+            followerCount = viewModel.user.stats.followers
+            followingCount = viewModel.user.stats.following
+        }
     }
 }
-
-//#Preview {
-//    ProfileHeaderView()
-//}

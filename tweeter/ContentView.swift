@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Kingfisher
+import Firebase
 
 struct ContentView: View {
     @Environment(\.dismiss) var dismiss
@@ -15,6 +16,7 @@ struct ContentView: View {
     @State private var isShowingProfile = false
     @ObservedObject var homeViewModel = HomeViewModel()
     @ObservedObject var searchViewModel = SearchViewModel()
+    @State private var navigationTitle = "Home"
     
     var body: some View {
         Group {
@@ -27,56 +29,47 @@ struct ContentView: View {
                                 Image(systemName: "house")
                                 Text("Home")
                             }
+                            .onAppear{
+                                navigationTitle = "Home"
+                            }
                         
                         SearchView(viewModel: searchViewModel)
                             .tabItem {
                                 Image(systemName: "magnifyingglass")
                                 Text("Search")
                             }
-                        
-                        MessagesView()
-                            .tabItem {
-                                Image(systemName: "envelope")
-                                Text("Messages")
+                            .onAppear{
+                                navigationTitle = "Search"
                             }
                         
-                    }
-                    .navigationTitle("Home")
-                    .sheet(isPresented: $isShowingProfile) {
-                        NavigationView {
-                            VStack {
-                                UserProfileView(user: viewModel.user!)
-                                    .padding(.top, -20)
-                            }
-                            .toolbar {
-                                Button("Done") { isShowingProfile = false }
-                            }
-                        }
-                    }
-                    .confirmationDialog("Do you want to logout?", isPresented: $isShowingLogout, actions: {
-                        Button("Profile") { isShowingProfile = true }
-                        Button("Logout", role: .destructive) { viewModel.logout()
-                        }
-                        Button("Cancel", role: .cancel) {}
-                    })
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            Button {
-                                isShowingLogout = true
-                            } label: {
-                                if let user = viewModel.user {
-                                    KFImage(URL(string: user.profileImageUrl))
-                                        .resizable()
-                                        .scaledToFill()
-                                        .clipped()
-                                        .frame(width: 32, height: 32)
-                                        .cornerRadius(28)
+                        if let user = viewModel.user {
+                            UserProfileView(user: user)
+                                .tabItem {
+                                    Image(systemName: "person")
+                                    Text("Profile")
                                 }
-                            }
-                            
+                                .onAppear{
+                                    navigationTitle = "Profile"
+                                }
+                        } else {
+                            PlaceholderView()
+                                .tabItem {
+                                    Image(systemName: "person")
+                                    Text("Profile")
+                                }
                         }
+                        
+                        SettingsView()
+                            .tabItem {
+                                Image(systemName: "gear")
+                                Text("Settings")
+                            }
+                            .onAppear{
+                                navigationTitle = "Settings"
+                            }
                     }
-                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(navigationTitle)
+                    .navigationBarTitleDisplayMode(.automatic)
                     
                 }
             } else {
