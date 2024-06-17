@@ -12,8 +12,8 @@ struct Tweet: Identifiable {
     
     let id: String
     let username: String
-    let profileImageUrl: String
-    let fullName: String
+    var profileImageUrl: String
+    var fullName: String
     let caption: String
     let likes: Int
     let uid: String
@@ -28,5 +28,10 @@ struct Tweet: Identifiable {
         self.likes = dictionary["likes"] as? Int ?? 0
         self.uid = dictionary["uid"] as? String ?? ""
         self.timestamp = dictionary["timestamp"] as? Timestamp ?? Timestamp(date: Date())
+    }
+    
+    // Method to update profile image URL
+    mutating func updateProfileImageUrl(_ url: String) {
+        self.profileImageUrl = url
     }
 }

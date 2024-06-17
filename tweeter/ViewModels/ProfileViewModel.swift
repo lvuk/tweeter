@@ -8,6 +8,7 @@ import Foundation
 import SwiftUI
 import Firebase
 import Combine
+import FirebaseStorage
 
 class ProfileViewModel: ObservableObject {
     @Published var user: User
@@ -106,17 +107,86 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    func updateProfile(fullName: String, description: String, completion: @escaping () -> Void) {
-        let data = ["fullName": fullName,
-                    "description": description]
+//    func updateProfile(fullName: String, description: String, completion: @escaping () -> Void) {
+//        let data = ["fullName": fullName,
+//                    "description": description]
+//        
+//        COLLECTION_USERS.document(user.id).updateData(data) { [weak self] _ in
+//            DispatchQueue.main.async {
+//                self?.user.fullName = fullName
+//                self?.user.description = description
+//                self?.objectWillChange.send()
+//                completion()
+//            }
+//        }
+//    }
+    
+    func updateProfileImage(_ image: UIImage, completion: @escaping () -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+        let filename = UUID().uuidString
+        let storageRef = Storage.storage().reference().child(filename)
         
-        COLLECTION_USERS.document(user.id).updateData(data) { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.user.fullName = fullName
-                self?.user.description = description
-                self?.objectWillChange.send()
-                completion()
+        storageRef.putData(imageData, metadata: nil) { _, error in
+            if let error = error {
+                print("Failed to upload image: \(error.localizedDescription)")
+                return
+            }
+            
+            storageRef.downloadURL { url, _ in
+                guard let profileImageUrl = url?.absoluteString else { return }
+                
+                COLLECTION_USERS.document(self.user.id).updateData(["profileImageUrl": profileImageUrl]) { _ in
+                    DispatchQueue.main.async {
+                        self.user.profileImageUrl = profileImageUrl
+                        self.updateTweetsWithNewProfileImage(url: profileImageUrl)
+                        self.objectWillChange.send()
+                        completion()
+                    }
+                }
             }
         }
     }
+    
+    private func updateTweetsWithNewProfileImage(url: String) {
+        COLLECTION_TWEET.whereField("uid", isEqualTo: user.id).getDocuments { snapshot, error in
+            guard let documents = snapshot?.documents else { return }
+            
+            for document in documents {
+                var tweet = Tweet(dictionary: document.data())
+                tweet.updateProfileImageUrl(url)
+                
+                COLLECTION_TWEET.document(tweet.id).updateData(["profileImageUrl": url])
+            }
+            self.fetchUserTweets()
+        }
+    }
+    
+    func updateProfile(fullName: String, description: String, completion: @escaping () -> Void) {
+       let data = ["fullName": fullName,
+                   "description": description]
+       
+       COLLECTION_USERS.document(user.id).updateData(data) { [weak self] _ in
+           DispatchQueue.main.async {
+               self?.user.fullName = fullName
+               self?.user.description = description
+               self?.updateTweetsWithNewProfileInfo(fullName: fullName)
+               self?.objectWillChange.send()
+               completion()
+           }
+       }
+   }
+   
+   private func updateTweetsWithNewProfileInfo(fullName: String) {
+       COLLECTION_TWEET.whereField("uid", isEqualTo: user.id).getDocuments { snapshot, error in
+           guard let documents = snapshot?.documents else { return }
+           
+           for document in documents {
+               let tweetId = document.documentID
+               COLLECTION_TWEET.document(tweetId).updateData(["fullName": fullName])
+           }
+           
+           // Refresh tweets in the view model
+           self.fetchUserTweets()
+       }
+   }
 }

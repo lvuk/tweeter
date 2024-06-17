@@ -3,33 +3,47 @@
 //  tweeter
 //
 //  Created by Luka Vuk on 17.06.2024..
-//
 import SwiftUI
 import Kingfisher
 
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: ProfileViewModel
-    
+
     @State private var fullNameTextField: String = ""
     @State private var descriptionTextField: String = ""
     @State private var usernameTextField: String = ""
+    @State private var showImagePicker = false
+    @State private var selectedImage: UIImage?
     
     var body: some View {
         Form {
             Section {
                 HStack(alignment: .center) {
-                    KFImage(URL(string: viewModel.user.profileImageUrl))
-                        .resizable()
-                        .scaledToFill()
-                        .clipped()
-                        .frame(width: 120, height: 120)
-                        .clipShape(Circle())
-                        .shadow(radius: 15)
+                    if let image = selectedImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .frame(width: 120, height: 120)
+                            .clipShape(Circle())
+                            .shadow(radius: 15)
+                    } else {
+                        KFImage(URL(string: viewModel.user.profileImageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .frame(width: 120, height: 120)
+                            .clipShape(Circle())
+                            .shadow(radius: 15)
+                    }
                     Spacer()
                     
                     Button("Edit Photo") {
-                        // Select new photo from library
+                        showImagePicker = true
+                    }
+                    .sheet(isPresented: $showImagePicker) {
+                        ImagePicker(selectedImage: $selectedImage)
                     }
                     Spacer()
                 }
@@ -61,6 +75,11 @@ struct EditProfileView: View {
                     viewModel.updateProfile(fullName: fullNameTextField, description: descriptionTextField) {
                         dismiss()
                         viewModel.fetchUserInfo() // Fetch updated user info
+                        if let image = selectedImage {
+                            viewModel.updateProfileImage(image) {
+                                // Handle completion if necessary
+                            }
+                        }
                     }
                 }
             }
