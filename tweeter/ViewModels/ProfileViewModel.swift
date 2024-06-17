@@ -10,12 +10,45 @@ import SwiftUI
 import Firebase
 
 class ProfileViewModel: ObservableObject {
-    let user: User
+    @Published var user: User
     @Published var isFollowed = false
+    @Published var userTweets = [Tweet]()
+    @Published var savedTweets = [Tweet]()
     
     init(user: User) {
         self.user = user
         checkIfUserIsFollowed()
+        fetchUserTweets()
+        fetchUserStats()
+    }
+    
+    func fetchUserTweets() {
+        COLLECTION_TWEET.whereField("uid", isEqualTo: user.id).getDocuments { snapshot, _ in
+            guard let documents = snapshot?.documents else { return }
+            
+            self.userTweets = documents.map({Tweet(dictionary: $0.data())})
+            
+            
+        }
+    }
+    
+    func fetchSavedTweets() {
+        //TODO 
+    }
+    
+    func fetchUserStats() {
+        let followersRef = COLLECTIONS_FOLLOWERS.document(user.id).collection("user-followers")
+        let followingRef = COLLECTION_FOLLOWING.document(user.id).collection("user-following")
+        
+        followersRef.getDocuments { snapshot, _ in
+            guard let followersCount = snapshot?.documents.count else { return }
+            
+            followingRef.getDocuments { snapshot, _ in
+                guard let followingCount = snapshot?.documents.count else { return }
+                
+                self.user.stats = UserStats(followers: followersCount, following: followingCount)
+            }
+        }
     }
     
     func follow() {

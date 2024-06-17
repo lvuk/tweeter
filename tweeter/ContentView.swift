@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ContentView: View {
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var isShowingLogout = false
     @State private var isShowingProfile = false
@@ -42,12 +43,18 @@ struct ContentView: View {
                     }
                     .navigationTitle("Home")
                     .sheet(isPresented: $isShowingProfile) {
-                        UserProfileView(user: viewModel.user!)
+                        NavigationView {
+                            VStack {
+                                UserProfileView(user: viewModel.user!)
+                                    .padding(.top, -20)
+                            }
+                            .toolbar {
+                                Button("Done") { isShowingProfile = false }
+                            }
+                        }
                     }
                     .confirmationDialog("Do you want to logout?", isPresented: $isShowingLogout, actions: {
-                        Button("Profile") {
-                            isShowingProfile.toggle()
-                        }
+                        Button("Profile") { isShowingProfile = true }
                         Button("Logout", role: .destructive) { viewModel.logout()
                         }
                         Button("Cancel", role: .cancel) {}
@@ -55,7 +62,6 @@ struct ContentView: View {
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
-                                //do smth
                                 isShowingLogout = true
                             } label: {
                                 if let user = viewModel.user {
@@ -66,14 +72,8 @@ struct ContentView: View {
                                         .frame(width: 32, height: 32)
                                         .cornerRadius(28)
                                 }
-                                
-//                                Image("batman")
-//                                    .resizable()
-//                                    .scaledToFill()
-//                                    .clipped()
-//                                    .frame(width:32, height: 32)
-//                                    .clipShape(Circle())
                             }
+                            
                         }
                     }
                     .navigationBarTitleDisplayMode(.inline)

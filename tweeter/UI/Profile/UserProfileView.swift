@@ -10,6 +10,7 @@ import SwiftUI
 struct UserProfileView: View {
     let user: User
     @ObservedObject var viewModel: ProfileViewModel
+    @State private var selectedFilter: TweetFilterOptions = .tweets
     
     init(user: User) {
         self.user = user
@@ -22,19 +23,18 @@ struct UserProfileView: View {
                 ProfileHeaderView(viewModel: viewModel, isFollowed: $viewModel.isFollowed)
                     .padding(.top, 40)
                 
-                VStack {
-                   Text("Tweets")
-                        .foregroundStyle(.blue)
-                        
-                    Rectangle()
-                        .frame(width: 60, height: 3)
-                        .foregroundColor(.blue)
-                    
-                    ForEach(0..<9) { _ in
-//                        TweetCell()
-                    }
+                FilterButtonView(selectedOption: $selectedFilter)
+                    .padding(.top)
+//                FilterButtonView()
+//                    .padding(.top)
+                
+                ForEach(viewModel.userTweets) { tweet in
+                    TweetCell(tweet: tweet)
+                        .padding()
                 }
-                .padding(.top)
+                
+                
+                
                 
             }
         }

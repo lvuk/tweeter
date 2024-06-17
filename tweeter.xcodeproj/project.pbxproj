@@ -47,6 +47,7 @@
 		5A63942A2C1E364400292BB2 /* TweetActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6394292C1E364400292BB2 /* TweetActionsView.swift */; };
 		5A63942C2C1E36D500292BB2 /* TweetActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63942B2C1E36D500292BB2 /* TweetActionsViewModel.swift */; };
 		5A63942E2C1EEF4900292BB2 /* NotificationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63942D2C1EEF4900292BB2 /* NotificationPublisher.swift */; };
+		5A6394302C1F2F8800292BB2 /* FilterButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63942F2C1F2F8800292BB2 /* FilterButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		5A6394292C1E364400292BB2 /* TweetActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetActionsView.swift; sourceTree = "<group>"; };
 		5A63942B2C1E36D500292BB2 /* TweetActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetActionsViewModel.swift; sourceTree = "<group>"; };
 		5A63942D2C1EEF4900292BB2 /* NotificationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPublisher.swift; sourceTree = "<group>"; };
+		5A63942F2C1F2F8800292BB2 /* FilterButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +293,7 @@
 				5A5479782AFCE7D600E0470D /* TextArea.swift */,
 				5A54797F2B023AD800E0470D /* CustomTextField.swift */,
 				5A5479812B023D7C00E0470D /* CustomSecureField.swift */,
+				5A63942F2C1F2F8800292BB2 /* FilterButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				5A49DDF22B0D2FC30006BDB4 /* NewTweetViewModel.swift in Sources */,
 				5A54796E2AFCDB8300E0470D /* UserProfileView.swift in Sources */,
 				5A5479692AFCD47400E0470D /* SearchBar.swift in Sources */,
+				5A6394302C1F2F8800292BB2 /* FilterButtonView.swift in Sources */,
 				5A5479802B023AD800E0470D /* CustomTextField.swift in Sources */,
 				5A5479632AF4F2A500E0470D /* MessagesView.swift in Sources */,
 				5A5479972B061C6500E0470D /* SearchViewModel.swift in Sources */,

@@ -13,20 +13,17 @@ struct ActionButtonView: View {
     
     var body: some View {
         if viewModel.user.isCurrentUser {
-            Button {
-                //action for editing profile
-            } label: {
+            NavigationLink(destination: EmptyView()) {
                 Text("Edit Profile")
                     .frame(width: 360, height: 40)
                     .foregroundStyle(.blue)
                     .clipShape(Capsule())
-                    
-            }
-            .overlay(
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                    .stroke(Color.blue, lineWidth: 1)
-            )
-        } else {
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .stroke(Color.blue, lineWidth: 1)
+                    )
+
+            }        } else {
             HStack {
                 Button {
                     //action for follow
