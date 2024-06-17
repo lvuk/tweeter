@@ -67,6 +67,8 @@ class ProfileViewModel: ObservableObject {
                 }
             }
         }
+        
+        print("Fetched stats...")
     }
     
     func follow() {
@@ -76,6 +78,7 @@ class ProfileViewModel: ObservableObject {
             COLLECTIONS_FOLLOWERS.document(self.user.id).collection("user-followers").document(currentUid).setData([:]) { _ in
                 withAnimation {
                     self.isFollowed = true
+                    self.fetchUserStats()
                 }
             }
         }
@@ -88,6 +91,7 @@ class ProfileViewModel: ObservableObject {
             COLLECTIONS_FOLLOWERS.document(self.user.id).collection("user-followers").document(currentUid).delete { _ in
                 withAnimation {
                     self.isFollowed = false
+                    self.fetchUserStats()
                 }
             }
         }

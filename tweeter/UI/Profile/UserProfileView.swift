@@ -36,6 +36,9 @@ struct UserProfileView: View {
         .navigationTitle(user.username)
         .onAppear {
             viewModel.fetchUserInfo()
+            viewModel.fetchUserTweets()
+            viewModel.fetchSavedTweets()
+            viewModel.fetchUserStats()
         }
     }
 }

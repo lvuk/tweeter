@@ -9,8 +9,6 @@ import Kingfisher
 
 struct ProfileHeaderView: View {
     @ObservedObject var viewModel: ProfileViewModel
-    @State private var followerCount = 0
-    @State private var followingCount = 0
     @Binding var isFollowed: Bool
     
     var body: some View {
@@ -36,7 +34,7 @@ struct ProfileHeaderView: View {
             
             HStack(spacing: 42) {
                 VStack {
-                    Text("\(followerCount)")
+                    Text("\(viewModel.user.stats.followers)")
                         .font(.system(size: 16)).bold()
                     
                     Text("Followers")
@@ -45,7 +43,7 @@ struct ProfileHeaderView: View {
                 }
                 
                 VStack {
-                    Text("\(followingCount)")
+                    Text("\(viewModel.user.stats.following)")
                         .font(.system(size: 16)).bold()
                     
                     Text("Following")
@@ -58,10 +56,6 @@ struct ProfileHeaderView: View {
             ActionButtonView(viewModel: viewModel, isFollowed: $isFollowed)
             
             Spacer()
-        }
-        .onAppear {
-            followerCount = viewModel.user.stats.followers
-            followingCount = viewModel.user.stats.following
         }
     }
 }

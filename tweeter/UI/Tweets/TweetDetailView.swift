@@ -61,7 +61,8 @@ struct TweetDetailView: View {
             Divider()
             Spacer()
         }
-        .padding()
+        .padding(.horizontal)
+        .padding(.top, -40)
         .onReceive(NotificationCenter.default.publisher(for: .showDeleteDialog)) { _ in
             isShowingDelete = true
         }
