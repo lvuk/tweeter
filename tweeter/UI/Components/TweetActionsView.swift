@@ -29,7 +29,7 @@ struct TweetActionsView: View {
                 Image(systemName: viewModel.didLike ? "heart.fill" : "heart")
                     .foregroundColor(viewModel.didLike ? .red : .gray)
                 
-                Text("\(viewModel.likes)")
+//                Text("\(viewModel.likes)")
             }
             
             Spacer()

@@ -51,7 +51,7 @@ struct TweetDetailView: View {
             Text(tweet.caption)
                 .font(.system(size: 22))
             
-            Text("7:22 PM﹒15/6/2024")
+            Text("\(tweet.timestamp.dateValue().formatted(date: .numeric, time: .standard))")
                 .foregroundStyle(.gray)
             
             Divider()

@@ -22,18 +22,18 @@ struct TweetCell: View {
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    HStack(alignment: .firstTextBaseline) {
+                    HStack(alignment: .center) {
                         Text(tweet.fullName)
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundStyle(.black)
                         
-                        Text("@\(tweet.username) •")
+                        Text("@\(tweet.username)")
                             .font(.caption)
                             .foregroundStyle(.gray)
                         
-                        Text("2m ago")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
+//                        Text("2")
+//                            .font(.caption)
+//                            .foregroundStyle(.gray)
                     }
                     
                     Text(tweet.caption)
