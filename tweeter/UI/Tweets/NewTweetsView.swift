@@ -55,10 +55,11 @@ struct NewTweetsView: View {
                         Text("Tweet")
                             .padding(.horizontal)
                             .padding(.vertical, 8)
-                            .background(Color.blue.opacity(0.8))
+                            .background(captionText.isEmpty ? Color.gray.opacity(0.8) : Color.blue.opacity(0.8) )
                             .foregroundStyle(.white)
                             .clipShape(Capsule())
                     }
+                    .disabled(captionText.isEmpty)
                 }
             }
         }
