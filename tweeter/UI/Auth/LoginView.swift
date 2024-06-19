@@ -4,7 +4,7 @@
 //
 //  Created by Luka Vuk on 13.11.2023..
 //
-
+import SwiftUI
 import SwiftUI
 
 struct LoginView: View {
@@ -12,6 +12,9 @@ struct LoginView: View {
     @State var password = ""
     @EnvironmentObject var viewModel: AuthViewModel
     
+    @State private var showError = false
+    @State private var errorMessage = ""
+
     var body: some View {
        NavigationStack {
             VStack {
@@ -34,14 +37,13 @@ struct LoginView: View {
                         .background(Color.init(UIColor(white: 0, alpha: 0.05)))
                         .clipShape(Capsule())
                         .padding(.horizontal)
-                        
                 }
                 
                 HStack {
                     Spacer()
                     
                     Button {
-                        //do smth
+                        //Forgot password handling
                     } label: {
                         Text("Forgot Password?")
                             .font(.footnote)
@@ -53,8 +55,12 @@ struct LoginView: View {
                 }
                 
                 Button {
-                    //do smth
-                    viewModel.login(withEmail: email, password: password)
+                    if email.isEmpty || password.isEmpty {
+                        errorMessage = "Please enter both email and password."
+                        showError = true
+                    } else {
+                        viewModel.login(withEmail: email, password: password)
+                    }
                 } label: {
                     Text("Sign In")
                         .foregroundStyle(.white)
@@ -79,12 +85,20 @@ struct LoginView: View {
                         .foregroundStyle(.black)
                     }
                 )
-                
+            }
+            .onReceive(viewModel.$error) { loginError in
+                if let error = loginError {
+                    errorMessage = error.localizedDescription
+                    showError = true
+                }
+            }
+            .alert(isPresented: $showError) {
+                Alert(title: Text("Error"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
             }
         }
     }
 }
 
-#Preview {
-    LoginView()
-}
+//#Preview {
+//    LoginView()
+//}

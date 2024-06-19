@@ -4,7 +4,6 @@
 //
 //  Created by Luka Vuk on 13.11.2023..
 //
-
 import PhotosUI
 import SwiftUI
 
@@ -18,13 +17,15 @@ struct RegisterView: View {
     @State private var profilePicutreItem: PhotosPickerItem?
     @State private var profilePicture: UIImage?
     
+    @State private var showError = false
+    @State private var errorMessage = ""
+
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack {
             Button {
-                //do smth
                 isShowingImagePicker.toggle()
             } label: {
                 PhotosPicker(selection: $profilePicutreItem) {
@@ -45,14 +46,13 @@ struct RegisterView: View {
                             .padding(.bottom, 16)
                     }
                 }
-                
             }
             .onChange(of: profilePicutreItem) { _ in
                 Task {
                     if let data = try? await profilePicutreItem?.loadTransferable(type: Data.self) {
-                            if let uiImage = UIImage(data: data) {
-                                profilePicture = uiImage
-                                return
+                        if let uiImage = UIImage(data: data) {
+                            profilePicture = uiImage
+                            return
                         }
                     }
                 }
@@ -87,12 +87,16 @@ struct RegisterView: View {
                     .clipShape(Capsule())
                     .padding(.horizontal)
                     .padding(.bottom)
-                    
             }
             
             Button {
-                //do smth
-                viewModel.register(email: email, password: password, username: username, fullName: fullName, profileImage: profilePicture)
+                if email.isEmpty || password.isEmpty || username.isEmpty || fullName.isEmpty {
+                    errorMessage = "Please enter all values"
+                    showError = true
+                } else {
+                    viewModel.register(email: email, password: password, username: username, fullName: fullName, profileImage: profilePicture)
+                }
+
             } label: {
                 Text("Sign Up")
                     .foregroundStyle(.white)
@@ -108,21 +112,27 @@ struct RegisterView: View {
             
             HStack {
                 Button {
-                    //do smth
                     dismiss()
                 } label: {
                     Text("Already have an account?")
                     Text("Sign In")
                         .font(.headline)
-                        
                 }
             }
             .foregroundStyle(.black)
-            
+        }
+        .onReceive(viewModel.$error) { registerError in
+            if let error = registerError {
+                errorMessage = error.localizedDescription
+                showError = true
+            }
+        }
+        .alert(isPresented: $showError) {
+            Alert(title: Text("Error"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
         }
     }
 }
 
-#Preview {
-    RegisterView()
-}
+//#Preview {
+//    RegisterView()
+//}
